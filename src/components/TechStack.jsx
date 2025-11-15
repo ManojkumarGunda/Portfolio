@@ -1,9 +1,9 @@
 import React from 'react';
-import { FaReact, FaNodeJs, FaDatabase, FaAws, FaJs } from 'react-icons/fa';
-import { SiExpress, SiTailwindcss, SiChakraui } from 'react-icons/si';
+import { FaReact, FaNodeJs, FaAws, FaJs, FaPython, FaLock } from 'react-icons/fa';
+import { SiExpress, SiTailwindcss, SiNginx, SiMongodb, SiPostgresql, SiPandas, SiNumpy } from 'react-icons/si';
 import './TechStack.css';
 
-const TechStack: React.FC = () => {
+const TechStack = () => {
   const technologies = [
     {
       id: 1,
@@ -26,7 +26,7 @@ const TechStack: React.FC = () => {
     {
       id: 4,
       name: "MongoDB",
-      icon: FaDatabase,
+      icon: SiMongodb,
       color: "#47A248"
     },
     {
@@ -48,16 +48,42 @@ const TechStack: React.FC = () => {
       color: "#F7DF1E"
     },
     {
-      id: 8,
-      name: "Chakra UI",
-      icon: SiChakraui,
-      color: "#0081CB"
-    },
-    {
       id: 9,
       name: "PostgreSQL",
-      icon: FaDatabase,
+      icon: SiPostgresql,
       color: "#336791"
+    },
+    {
+      id: 10,
+      name: "Nginx Load Balancer",
+      icon: SiNginx,
+      color: "#009639"
+    },
+    
+    
+    {
+      id: 13,
+      name: "JWT Auth",
+      icon: FaLock,
+      color: "#FF6B35"
+    },
+    {
+      id: 14,
+      name: "Python",
+      icon: FaPython,
+      color: "#3776AB"
+    },
+    {
+      id: 15,
+      name: "Pandas",
+      icon: SiPandas,
+      color: "#150458"
+    },
+    {
+      id: 16,
+      name: "NumPy",
+      icon: SiNumpy,
+      color: "#013243"
     }
   ];
 

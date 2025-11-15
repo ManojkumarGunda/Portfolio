@@ -1,13 +1,13 @@
 import React from 'react';
 import './Education.css';
 
-const Education: React.FC = () => {
+const Education = () => {
   const educationData = [
     {
       degree: "Bachelor of Computer Science and Engineering",
       institution: "SRM UNIVERSITY",
       year: "2021 - 2025",
-      percentage: "7.4/10 CGPA",
+      percentage: "7.52/10 CGPA",
       description: "Artificial Intelligence and Machine Learning",
       keyCourses: [
         "Data Structures and Algorithms",

@@ -503,13 +503,38 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .contact-section {
+    padding: 80px 0;
+  }
+  
+  .contact-container {
+    padding: 0 1.5rem;
+  }
+  
+  .section-header {
+    margin-bottom: 3rem;
+  }
+  
+  .section-title { 
+    font-size: 2.3rem; 
+  }
+  
+  .section-subtitle {
+    font-size: 1.1rem;
+  }
+  
   .contact-content {
     grid-template-columns: 1fr;
     gap: 3rem;
-    text-align: center;
   }
   
-  .section-title { font-size: 2.3rem; }
+  .contact-info-container {
+    gap: 2rem;
+  }
+  
+  .contact-details {
+    gap: 1rem;
+  }
   
   .contact-form-container,
   .info-section {
@@ -521,39 +546,105 @@
     font-size: 1.5rem;
     text-align: center;
   }
+  
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+  }
+  
+  .social-icons {
+    justify-content: center;
+  }
 }
 
 @media (max-width: 480px) {
-  .contact-container {
-    padding: 0 15px;
+  .contact-section {
+    padding: 60px 0;
   }
   
-  .section-title { font-size: 1.8rem; }
+  .contact-container {
+    padding: 0 1rem;
+  }
+  
+  .section-header {
+    margin-bottom: 2rem;
+  }
+  
+  .section-title { 
+    font-size: 1.8rem; 
+  }
+  
+  .section-subtitle {
+    font-size: 1rem;
+  }
+  
+  .contact-content {
+    gap: 2rem;
+  }
+  
+  .contact-info-container {
+    gap: 1.5rem;
+  }
   
   .contact-form-container,
   .info-section {
     padding: 1.5rem;
   }
   
-  .form-group input,
-  .form-group textarea {
-    padding: 1rem 1.2rem;
-  }
-  
-  .submit-btn {
-    padding: 1rem 2rem;
-    font-size: 1rem;
-  }
-  
-  .contact-icon {
-    width: 45px;
-    height: 45px;
+  .form-title,
+  .info-title {
     font-size: 1.3rem;
   }
   
+  .form-group {
+    margin-bottom: 0;
+  }
+  
+  .form-group label {
+    font-size: 0.95rem;
+    margin-bottom: 0.6rem;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    padding: 0.9rem 1.2rem;
+    font-size: 0.95rem;
+    width: 100%;
+  }
+  
+  .form-group textarea {
+    min-height: 100px;
+  }
+  
+  .submit-btn {
+    padding: 0.9rem 1.5rem;
+    font-size: 1rem;
+    width: 100%;
+  }
+  
+  .contact-item {
+    padding: 0.8rem;
+    gap: 1rem;
+  }
+  
+  .contact-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+  
+  .contact-item span {
+    font-size: 0.9rem;
+  }
+  
   .social-icon {
-    width: 50px;
-    height: 50px;
-    font-size: 1.5rem;
+    width: 45px;
+    height: 45px;
+    font-size: 1.4rem;
+  }
+  
+  .social-icon svg {
+    width: 24px;
+    height: 24px;
   }
 }

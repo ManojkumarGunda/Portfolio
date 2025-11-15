@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FaGithub, FaLinkedin, FaWhatsapp, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 import './Contact.css';
 
-const Contact: React.FC = () => {
+const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -10,12 +10,12 @@ const Contact: React.FC = () => {
     message: ''
   });
 
-  const [errors, setErrors] = useState<{[key: string]: string}>({});
+  const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [submitStatus, setSubmitStatus] = useState('idle');
 
   const validateForm = () => {
-    const newErrors: {[key: string]: string} = {};
+    const newErrors = {};
     
     if (!formData.name.trim()) {
       newErrors.name = 'Name is required';
@@ -41,7 +41,7 @@ const Contact: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -57,7 +57,7 @@ const Contact: React.FC = () => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (!validateForm()) {
@@ -137,7 +137,7 @@ const Contact: React.FC = () => {
                 <a href="https://github.com/ManojkumarGunda" className="social-icon" target="_blank" rel="noopener noreferrer">
                   {FaGithub({ size: 28 })}
                 </a>
-                <a href="https://www.linkedin.com/in/manoj-gunda-4482b2231/" className="social-icon" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.linkedin.com/in/manoj-kumar-gunda-4482b2231/" className="social-icon" target="_blank" rel="noopener noreferrer">
                   {FaLinkedin({ size: 28 })}
                 </a>
                 <a href="https://wa.me/7013247808" className="social-icon" target="_blank" rel="noopener noreferrer">

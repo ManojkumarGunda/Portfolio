@@ -2,32 +2,21 @@ import React from 'react';
 import { FaBriefcase } from 'react-icons/fa';
 import './Projects.css';
 
-type Project = {
-  id: number;
-  title: string;
-  description: string | string[];
-  image: string;
-  technologies: string[];
-  githubLink?: string;
-  liveLink?: string;
-  category?: string;
-};
-
-const Projects: React.FC = () => {
-  const BriefcaseIcon = FaBriefcase as unknown as React.ComponentType<{ size?: number }>;
-  const projectsData: Project[] = [
+const Projects = () => {
+  const BriefcaseIcon = FaBriefcase;
+  const projectsData = [
     {
       id: 1,
-      title: "LEARNING MANAGEMENT SYSTEM (LMS)",
+      title: "FuelGo – Smart Fuel Delivery Platform",
       description: [
-        "Built a full-stack LMS using MERN stack with secure authentication and role-based access (Admin, Instructor, Student).",
-        "Implemented course management features including creation, enrollment, and progress tracking.",
-        "Deployed backend services with Nginx load balancer for improved scalability and traffic distribution.",
-        "Enhanced user experience with responsive UI and real-time progress updates using React and Tailwind CSS."
+        "Developed a responsive fuel delivery web application with two dashboards — one for admins and one for customers",
+        "Admin dashboard enables order management, delivery tracking, and inventory control.",
+        "Designed a clean and interactive UI using modern frontend technologies to enhance usability and performance.",
+        "Focused on scalability and smooth workflow, ensuring efficient communication between delivery operators and customers."
       ],
-      image: "📚",
+      image: "⛽",
       technologies: ["React.js", "Node.js", "Express.js", "MongoDB", "Tailwind CSS", "Nginx"],
-      githubLink: "https://github.com/ManojkumarGunda/LMS",
+      githubLink: "https://github.com/ManojkumarGunda/Fuel-GO",
     },
     {
       id: 2,
@@ -76,7 +65,23 @@ const Projects: React.FC = () => {
             >
               <div className="project-image">
                 <div className="project-icon">
-                  {project.image === '💼' ? React.createElement(BriefcaseIcon, { size: 48 }) : project.image}
+                  {(() => {
+                    // Check if it's an image path (starts with / or http, or has image extension)
+                    const isImagePath = typeof project.image === 'string' && 
+                      (project.image.startsWith('/') || 
+                       project.image.startsWith('http') || 
+                       /\.(png|jpg|jpeg|gif|webp|svg)$/i.test(project.image));
+                    
+                    if (isImagePath) {
+                      return <img src={project.image} alt={project.title} className="project-img-el" />;
+                    }
+                    // Special case for briefcase icon
+                    if (project.image === '💼') {
+                      return React.createElement(BriefcaseIcon, { size: 48 });
+                    }
+                    // Default: render emoji or text
+                    return project.image;
+                  })()}
                 </div>
                 <div className="project-overlay">
                   <div className="project-links">
@@ -99,7 +104,7 @@ const Projects: React.FC = () => {
                 <h3 className="project-title">{project.title}</h3>
                 {Array.isArray(project.description) ? (
                   <ul className="project-description project-description-list">
-                    {project.description.map((line: string, i: number) => (
+                    {project.description.map((line, i) => (
                       <li key={i} className="project-description-item">{line}</li>
                     ))}
                   </ul>

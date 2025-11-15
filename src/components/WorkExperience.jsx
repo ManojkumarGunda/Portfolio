@@ -1,37 +1,45 @@
 import React, { useEffect, useState } from 'react';
 import './WorkExperience.css';
 
-const WorkExperience: React.FC = () => {
+const WorkExperience = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
       const experienceSection = document.getElementById('experience');
+      
       if (experienceSection) {
-        const rect = experienceSection.getBoundingClientRect();
         const windowHeight = window.innerHeight;
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         
-        // Calculate how much of the section is visible
-        if (rect.top <= windowHeight && rect.bottom >= 0) {
-          const visibleHeight = Math.min(windowHeight, rect.bottom) - Math.max(0, rect.top);
-          const totalHeight = rect.height;
-          const progress = Math.min(100, Math.max(0, (visibleHeight / totalHeight) * 100));
-          
-          // More granular progress calculation for smoother timeline filling
-          if (progress >= 90) {
-            setScrollProgress(100);
-          } else if (progress >= 70) {
-            setScrollProgress(75);
-          } else if (progress >= 50) {
-            setScrollProgress(50);
-          } else if (progress >= 25) {
-            setScrollProgress(25);
-          } else if (progress >= 10) {
-            setScrollProgress(10);
-          } else {
-            setScrollProgress(0);
-          }
+        // Get the section's position relative to the document
+        const sectionTop = experienceSection.offsetTop;
+        const sectionHeight = experienceSection.offsetHeight;
+        
+        // Calculate progress based on scroll position
+        // Progress starts when section top enters viewport (at 50% of viewport height)
+        // Progress completes when section bottom reaches 50% of viewport height
+        const triggerPoint = windowHeight * 0.5; // Middle of viewport
+        const sectionStart = sectionTop - triggerPoint;
+        const sectionEnd = sectionTop + sectionHeight - triggerPoint;
+        
+        let progress = 0;
+        
+        if (scrollTop < sectionStart) {
+          // Haven't reached the section yet
+          progress = 0;
+        } else if (scrollTop > sectionEnd) {
+          // Scrolled past the section
+          progress = 100;
+        } else {
+          // Scrolling through the section
+          const scrolled = scrollTop - sectionStart;
+          const totalScrollable = sectionEnd - sectionStart;
+          progress = (scrolled / totalScrollable) * 100;
         }
+        
+        // Clamp between 0 and 100 and round for smooth updates
+        setScrollProgress(Math.round(Math.min(100, Math.max(0, progress))));
       }
     };
 
@@ -47,7 +55,7 @@ const WorkExperience: React.FC = () => {
       }
     };
 
-    window.addEventListener('scroll', throttledScroll);
+    window.addEventListener('scroll', throttledScroll, { passive: true });
     handleScroll(); // Initial check
     
     return () => window.removeEventListener('scroll', throttledScroll);
@@ -56,23 +64,40 @@ const WorkExperience: React.FC = () => {
   const workData = [
     {
       id: 1,
-company: "Navikshaa Technologies",
-position: "MERN Stack Developer",
-duration: "May 2025 - Present",
-location: "On site - Bangalore",
-type: "Intern",
-description: "Collaborating with cross-functional teams to design and develop dynamic, user-focused web applications using the MERN stack. Built reusable React components and implemented RESTful APIs with Node.js and Express.js for efficient data handling. Integrated MongoDB for scalable and reliable data management, while leveraging Tailwind CSS to deliver responsive and consistent UI designs.",
-achievements: [
-  "Developed a WhatsApp-style real-time chat application integrated into the company ERP, enabling secure communication and role-based chat features.",
-  "Designed and implemented secure REST APIs, ensuring smooth data flow and robust application security.",
-  "Optimized MongoDB queries and schema design, improving data retrieval efficiency.",
-  "Enhanced UI/UX consistency with Tailwind CSS, resulting in improved responsiveness across devices.",
-  "Built and deployed end-to-end MERN stack applications that improved scalability and performance."
-],
-technologies: ["React", "JavaScript", "Node.js", "Express.js", "Tailwind CSS", "MongoDB", "REST APIs", "Socket.io"],
-logo: "💼"
-
+      company: "Navikshaa Technologies",
+      position: "MERN Stack Developer",
+      duration: "May 2025 - Present",
+      location: "On site - Bangalore",
+      type: "Intern",
+      description:
+        "Collaborating with cross-functional teams to design and develop dynamic, user-focused web applications using the MERN stack. Built reusable React components and implemented RESTful APIs with Node.js and Express.js for efficient data handling. Integrated MongoDB for scalable and reliable data management, while leveraging Tailwind CSS to deliver responsive and consistent UI designs.",
+        achievements: [
+          "Engineered a full-stack Learning Management System (LMS) using the MERN stack, featuring modular course management, video content delivery, role-based dashboards (Admin/Instructor/Student), and optimized backend workflows.",
+          "Implemented secure authentication and authorization using JWT, RBAC, and middleware-driven route protection, ensuring data integrity and controlled access across the LMS.",
+          "Developed scalable RESTful APIs using Node.js and Express.js, integrating validation layers, error-handling middleware, and performance-optimized controllers.",
+          "Designed and optimized MongoDB schemas with indexes and aggregation pipelines to enhance query performance and support high-volume data operations.",
+          "Built a real-time communication module using Socket.io for the company ERP, enabling secure messaging, role-bound chat rooms, and event-driven updates.",
+          "Delivered responsive and component-driven UI using React and Tailwind CSS, improving load performance, state predictability, and cross-device usability."
+        ],
+        
+      technologies: [
+        "React",
+        "JavaScript",
+        "Node.js",
+        "Express.js",
+        "Tailwind CSS",
+        "MongoDB",
+        "REST APIs",
+        "Socket.io",
+        // ⭐ Added LMS tech stack
+        "JWT Auth",
+        "Cloud Storage (AWS/GCP)",
+        "Multer",
+        "Redux Toolkit"
+      ],
+      logo: "💼"
     },
+    
     {
       id: 2,
       company: "APSSDC.",
@@ -103,7 +128,10 @@ logo: "💼"
           <p className="section-subtitle">My professional journey and achievements</p>
         </div>
 
-                 <div className={`experience-timeline progress-${scrollProgress}`}>
+                 <div 
+                   className="experience-timeline" 
+                   style={{ '--progress': `${scrollProgress}%` }}
+                 >
            {workData.map((job, index) => (
             <div key={job.id} className="experience-item">
               <div className="experience-icon">
